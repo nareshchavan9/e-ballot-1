@@ -24,7 +24,8 @@ router.post('/register', async (req, res) => {
       email,
       voterID,
       password,
-      age
+      age,
+      isVerified: true
     });
     
     await user.save();
