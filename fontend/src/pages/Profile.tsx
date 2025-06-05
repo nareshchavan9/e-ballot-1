@@ -167,7 +167,7 @@ const Profile = () => {
       if (response.success) {
         toast({
           title: "Success",
-          description: "Your account has been deactivated",
+          description: "Your account has been deleted",
           variant: "default",
         });
         
@@ -177,13 +177,13 @@ const Profile = () => {
         // Redirect to home page
         navigate("/");
       } else {
-        throw new Error(response.message || 'Failed to deactivate account');
+        throw new Error(response.message || 'Failed to delete account');
       }
     } catch (error: any) {
-      console.error('Deactivate account error:', error);
+      console.error('Delete account error:', error);
       toast({
         title: "Error",
-        description: error.response?.data?.message || error.message || "Failed to deactivate account",
+        description: error.response?.data?.message || error.message || "Failed to delete account",
         variant: "destructive",
       });
     } finally {
@@ -369,7 +369,7 @@ const Profile = () => {
                           variant="destructive" 
                           onClick={() => setShowDeactivateConfirm(true)}
                         >
-                          Deactivate Account
+                          Delete Account
                         </Button>
                       </>
                     )}
@@ -385,9 +385,9 @@ const Profile = () => {
       {showDeactivateConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg p-6 max-w-md w-full">
-            <h3 className="text-lg font-semibold mb-4">Deactivate Account</h3>
+            <h3 className="text-lg font-semibold mb-4">Delete Account</h3>
             <p className="text-gray-600 mb-6">
-              Are you sure you want to deactivate your account? You will no longer be able to login or participate in elections.
+              Are you sure you want to delete your account? You will no longer be able to login or participate in elections.
             </p>
             <div className="flex justify-end gap-4">
               <Button
@@ -400,7 +400,7 @@ const Profile = () => {
                 variant="destructive"
                 onClick={handleDeactivateAccount}
               >
-                Deactivate Account
+                Delete Account
               </Button>
             </div>
           </div>
