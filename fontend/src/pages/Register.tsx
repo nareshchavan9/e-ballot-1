@@ -59,7 +59,8 @@ const Register = () => {
       // Convert age to number before sending
       const formattedData = {
         ...registrationData,
-        age: parseInt(registrationData.age)
+        age: parseInt(registrationData.age),
+        isVerified: true
       };
       await authService.register(formattedData);
       
