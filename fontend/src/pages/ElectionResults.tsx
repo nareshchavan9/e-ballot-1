@@ -105,60 +105,38 @@ const ElectionResults = () => {
             </div>
           </div>
 
-          {results.winners.length > 0 && (
-            <Card
-              className={
-                results.isTie
-                  ? "bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200"
-                  : "bg-gradient-to-r from-yellow-50 to-yellow-100 border-yellow-200"
+{results.winners.length > 0 && (
+  <Card className={results.isTie ? "bg-blue-100" : "bg-yellow-100"}>
+    <CardHeader>
+      <CardTitle className="flex items-center">
+        <Trophy className="h-5 w-5 mr-2 text-yellow-600" />
+        {results.isTie ? "Tie Result" : "Winner(s)"}
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      <div className={`grid gap-4 ${results.isTie ? "md:grid-cols-2" : ""}`}>
+        {results.winners.map((winner, index) => (
+          <div key={winner.id} className="space-y-2">
+            <p className="text-xl font-semibold">{`${index + 1}ᵗʰ - ${winner.name}`}</p>
+            <p className="text-gray-600">{winner.party}</p>
+            <p className="text-gray-500">{winner.region}</p>
+            <p className="text-sm text-gray-500">{winner.bio}</p>
+            {results.results.map(result => {
+              if (result.candidate.id === winner.id) {
+                return (
+                  <p key={result.candidate.id} className="text-sm font-medium">
+                    Votes: {result.votes} ({result.percentage.toFixed(1)}%)
+                  </p>
+                );
               }
-            >
-              <CardHeader>
-                <CardTitle
-                  className={`flex items-center ${
-                    results.isTie ? "text-blue-800" : "text-yellow-800"
-                  }`}
-                >
-                  <Trophy
-                    className={`h-5 w-5 mr-2 ${
-                      results.isTie ? "text-blue-600" : "text-yellow-600"
-                    }`}
-                  />
-                  {results.isTie ? "Tie Result" : "Winner"}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div
-                  className={`grid gap-4 ${
-                    results.isTie ? "md:grid-cols-2" : ""
-                  }`}
-                >
-                  {results.winners.map((winner) => (
-                    <div key={winner.id} className="space-y-2">
-                      <p className="text-xl font-semibold">{winner.name}</p>
-                      <p className="text-gray-600">{winner.party}</p>
-                      <p className="text-sm text-gray-500">{winner.bio}</p>
-                      <p className="text-green-600 font-medium">🏆 Status: Won</p>
-                      {results.results.map((result) => {
-                        if (result.candidate.id === winner.id) {
-                          return (
-                            <p
-                              key={result.candidate.id}
-                              className="text-sm font-medium"
-                            >
-                              Votes: {result.votes} (
-                              {result.percentage.toFixed(1)}%)
-                            </p>
-                          );
-                        }
-                        return null;
-                      })}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
+              return null;
+            })}
+          </div>
+        ))}
+      </div>
+    </CardContent>
+  </Card>
+)}
 
           <div className="grid gap-4 md:grid-cols-2">
             {results.results
